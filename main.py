@@ -2,12 +2,13 @@ import tkinter as tk
 import json
 import os
 from bot.cool import App, readJson, writeJson
+import sys
+import subprocess
 
-#定義json檔讀寫函式
 
 
 
-# this is a function to get the user input from the text input box
+
 
 
 if __name__ == "__main__":
@@ -26,7 +27,10 @@ if __name__ == "__main__":
 
 	config = readJson('config')
 	if config['token']:
-		print(config['token'])
+		if os.path.exists("bot.exe"):
+			subprocess.Popen("bot/bot.exe")
+		else:
+			subprocess.Popen(["python", "bot/bot.py"])
 	else:
 		root = tk.Tk()
 		app = App(root)
