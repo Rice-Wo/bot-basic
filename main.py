@@ -1,10 +1,10 @@
 import tkinter as tk
 import json
 import os
-from bot.cool import App, readJson, writeJson
+from windows import App
 import sys
 import subprocess
-
+from fun import readJson, writeJson
 
 
 
@@ -13,7 +13,7 @@ import subprocess
 
 if __name__ == "__main__":
 
-	if os.path.exists("bot/config.json"):    
+	if os.path.exists("config.json"):    
 		pass
 	else:
 		# 創建一個新的設定檔
@@ -27,10 +27,7 @@ if __name__ == "__main__":
 
 	config = readJson('config')
 	if config['token']:
-		if os.path.exists("bot.exe"):
-			subprocess.Popen("bot/bot.exe")
-		else:
-			subprocess.Popen(["python", "bot/bot.py"])
+		pass
 	else:
 		root = tk.Tk()
 		app = App(root)
