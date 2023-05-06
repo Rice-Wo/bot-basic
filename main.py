@@ -47,7 +47,7 @@ async def _test(ctx):
 def error(reason):
 	logging.critical(reason)
 	root = tk.Tk()
-	app = error_window(root)
+	app = error_window(root, reason)
 	root.mainloop()
 
 def tokenInput():
