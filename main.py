@@ -4,6 +4,9 @@ import logging
 from fun import readJson, writeJson
 import discord
 from windows import error_window
+from pathlib import Path
+
+
 
 logging.basicConfig(level=logging.DEBUG, format='%(asctime)s [%(levelname)s] : %(message)s', datefmt='%Y-%m-%d %H:%M:%S')
 
@@ -27,12 +30,12 @@ config = readJson('config')
 
 @bot.event
 async def on_ready():
-  print(f"機器人 {bot.user} 已經上線了")
+  logging.info(f"機器人 {bot.user} 已經上線了")
 
 
-@bot.command(name='測試用')
-async def _test(ctx):
-  await ctx.respond('成功')
+@bot.command(name='close')
+async def _close(ctx):
+  await bot.close()
 
 
 
@@ -59,6 +62,7 @@ def tokenInput():
 
 def run_bot():
 	try:
+		
 		token = config['token']
 		bot.run(token)
 	except discord.errors.LoginFailure:
@@ -68,6 +72,9 @@ def run_bot():
 	except Exception as e:
 		error(e)
 
+for filepath in Path("./cogs").glob("**/*.py"):
+	cog_name = Path(filepath).stem
+	bot.load_extension(f"cogs.{cog_name}")
 
 if __name__ == "__main__":
 
