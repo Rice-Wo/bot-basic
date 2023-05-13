@@ -2,6 +2,12 @@ import discord
 from discord.ext import commands
 import random
 
+"""
+這個cog包含了女僕有的功能
+"""
+
+
+
 class Rice_maid(commands.Cog):
     def __init__(self, bot): 
         self.bot = bot
