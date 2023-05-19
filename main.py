@@ -7,6 +7,7 @@ from windows import error_window
 from pathlib import Path
 from discord.ext import commands
 from datetime import datetime
+import time
 
 
 #設定日誌
@@ -14,7 +15,7 @@ logs_folder = "logs"
 os.makedirs(logs_folder, exist_ok=True)
 
 current_time = datetime.now()
-log_filename = f"error_{current_time.strftime('%Y%m%d_%H%M%S')}.log"
+log_filename = f"error_{current_time.strftime('%Y-%m-%d_%H.%M.%S')}.log"
 log_path = os.path.join(logs_folder, log_filename)
 
 logging.basicConfig(
@@ -22,6 +23,13 @@ logging.basicConfig(
 	format='%(asctime)s [%(levelname)s] : %(message)s',
 	datefmt='%Y-%m-%d %H:%M:%S'
 )
+
+file_handler = logging.FileHandler(log_path) #log檔紀錄
+file_handler.setFormatter(logging.Formatter('%(asctime)s [%(levelname)s] : %(message)s', datefmt='%Y-%m-%d %H:%M:%S'))
+logging.getLogger().addHandler(file_handler)
+
+
+
 
 
 
@@ -39,7 +47,7 @@ bot = discord.Bot(status=discord.Status.do_not_disturb, intents = intents)
 async def on_ready():
 	logging.info(f"機器人 {bot.user} 已經上線了")
 	logging.info('請勿關閉本視窗以維持機器人上線狀態，可以最小化')
-	logging.info('如要關閉機器人請使用/close 或者在本視窗按下ctrl+C')
+	logging.info('如要關閉機器人請使用/close指令 或者在本視窗按下ctrl+C')
 
 
 @bot.command(name='close')
@@ -59,9 +67,8 @@ async def on_application_command_error(ctx: discord.ApplicationContext, error: d
 
 
 
-
+# 如果沒設定檔就創建一個新的設定檔
 if not os.path.exists("config.json"):    
-	# 創建一個新的設定檔
 	config = {
 		'token': "",
 		'setting2': 'value2',
@@ -72,20 +79,19 @@ if not os.path.exists("config.json"):
 	logging.debug(f'已創建config.json，檔案位置 {config_file}')
 
 
-def error(reason):
+def error(reason): #錯誤處理
 	logging.critical(reason)
 	root = tk.Tk()
 	app = error_window(root, reason)
 	root.mainloop()
 
-def tokenInput():
+def tokenInput(): #給使用者輸入token
 	T = input('請輸入token')
 	config = readJson('config')
 	config['token'] = T
 	writeJson('config', config)
 
-
-def run_bot():
+def run_bot(): #執行機器人
 	config = readJson('config')
 	try:
 		token = config['token']
