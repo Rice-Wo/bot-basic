@@ -47,6 +47,9 @@ class error_window:
         words["fg"] = "#333333"
         words["justify"] = "center"
         words["text"] = reason
+        words['wraplength'] = 500
+        Label_width=500
+        Label_height=100
         words.place(x=(width - Label_width) / 2,y=(height - Label_height) / 2 ,width=Label_width,height=Label_height)
 
         
