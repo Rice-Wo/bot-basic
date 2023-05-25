@@ -11,3 +11,5 @@ def writeJson(file, item):
 	file_path = os.path.join(os.path.dirname(__file__), file + '.json')
 	with open(file_path, "w+") as f:
 		f.write(json.dumps(item, ensure_ascii=False, indent=4))
+
+
