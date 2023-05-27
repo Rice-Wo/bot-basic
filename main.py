@@ -50,18 +50,7 @@ async def on_ready():
 	logging.info('如要關閉機器人請使用/close指令 或者在本視窗按下ctrl+C')
 
 
-@bot.command(name='close')
-@commands.is_owner()
-async def _close(ctx):
-	await ctx.response('正在關閉機器人')
-	await bot.close()
-
-@_close.error
-async def on_application_command_error(ctx: discord.ApplicationContext, error: discord.DiscordException):
-    if isinstance(error, commands.NotOwner):
-        await ctx.respond("只有機器人主人能使用這個指令!")
-    else:
-        raise error
+''''''
 
 
 
@@ -103,9 +92,11 @@ def run_bot(): #執行機器人
 	except Exception as e:
 		error(e)
 
+#載入cog
 for filepath in Path("./cogs").glob("**/*.py"):
 	cog_name = Path(filepath).stem
 	bot.load_extension(f"cogs.{cog_name}")
+	logging.info(f'已載入 {cog_name} 模塊')
 
 if __name__ == "__main__":
 	config = readJson('config')
