@@ -15,7 +15,7 @@ logs_folder = "logs"
 os.makedirs(logs_folder, exist_ok=True)
 
 current_time = datetime.now()
-log_filename = f"error_{current_time.strftime('%Y-%m-%d_%H.%M.%S')}.log"
+log_filename = f"log_{current_time.strftime('%Y-%m-%d_%H.%M.%S')}.log"
 log_path = os.path.join(logs_folder, log_filename)
 
 logging.basicConfig(
@@ -50,7 +50,7 @@ async def on_ready():
 	logging.info('如要關閉機器人請使用/close指令 或者在本視窗按下ctrl+C')
 
 
-''''''
+
 
 
 
