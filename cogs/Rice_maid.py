@@ -14,9 +14,7 @@ class Rice_maid(commands.Cog):
 
 
         
-    @discord.slash_command(name="ping")
-    async def _ping(self, ctx):
-        await ctx.respond(f"目前ping值為 {round(self.bot.latency * 1000)} ms")
+   
 
 
     
