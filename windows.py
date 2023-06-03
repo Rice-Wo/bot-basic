@@ -42,7 +42,7 @@ class error_window:
         bottom.place(x=(width - Label_width) / 2,y=(height - Label_height) / 2 + Label_height*2,width=Label_width,height=Label_height)
 
         words=tk.Label(root)
-        ft = tkFont.Font(family='Times',size=20)
+        ft = tkFont.Font(family='Times',size=12)
         words["font"] = ft
         words["fg"] = "#333333"
         words["justify"] = "center"
