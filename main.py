@@ -19,7 +19,7 @@ log_filename = f"log_{current_time.strftime('%Y-%m-%d_%H.%M.%S')}.log"
 log_path = os.path.join(logs_folder, log_filename)
 
 logging.basicConfig(
-	level=logging.DEBUG,
+	level=logging.INFO,
 	format='%(asctime)s [%(levelname)s] : %(message)s',
 	datefmt='%Y-%m-%d %H:%M:%S'
 )
@@ -48,6 +48,9 @@ async def on_ready():
 	logging.info(f"機器人 {bot.user} 已經上線了")
 	logging.info('請勿關閉本視窗以維持機器人上線狀態，可以最小化')
 	logging.info('如要關閉機器人請使用/close指令 或者在本視窗按下ctrl+C')
+	loaded_cogs = list(bot.cogs.keys())
+	for cog_name in loaded_cogs:
+		logging.info(f'已載入 {cog_name} 模塊')
 
 
 
@@ -96,7 +99,7 @@ def run_bot(): #執行機器人
 for filepath in Path("./cogs").glob("**/*.py"):
 	cog_name = Path(filepath).stem
 	bot.load_extension(f"cogs.{cog_name}")
-	logging.info(f'已載入 {cog_name} 模塊')
+	logging.debug(f'已載入 {cog_name} 模塊')
 
 if __name__ == "__main__":
 	config = readJson('config')
