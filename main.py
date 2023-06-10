@@ -49,9 +49,11 @@ async def on_ready():
 	logging.info('請勿關閉本視窗以維持機器人上線狀態，可以最小化')
 	logging.info('如要關閉機器人請使用/close指令 或者在本視窗按下ctrl+C')
 	loaded_cogs = list(bot.cogs.keys())
-	for cog_name in loaded_cogs:
-		logging.info(f'已載入 {cog_name} 模塊')
-
+	if loaded_cogs:
+		for cog_name in loaded_cogs:
+			logging.info(f'已載入 {cog_name} 模塊')
+	else:
+		logging.warning('沒有任何模組被載入，請確認cogs資料夾')
 
 
 
