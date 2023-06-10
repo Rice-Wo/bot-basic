@@ -29,6 +29,11 @@ file_handler.setFormatter(logging.Formatter('%(asctime)s [%(levelname)s] : %(mes
 logging.getLogger().addHandler(file_handler)
 
 
+def error_hand(reason): #錯誤處理
+	logging.critical(reason)
+	root = tk.Tk()
+	app = error_window(root, reason)
+	root.mainloop()
 
 
 
@@ -73,11 +78,6 @@ if not os.path.exists("config.json"):
 	logging.debug(f'已創建config.json，檔案位置 {config_file}')
 
 
-def error(reason): #錯誤處理
-	logging.critical(reason)
-	root = tk.Tk()
-	app = error_window(root, reason)
-	root.mainloop()
 
 def tokenInput(): #給使用者輸入token
 	T = input('請輸入token')
