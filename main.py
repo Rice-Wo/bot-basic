@@ -93,9 +93,9 @@ def run_bot(): #執行機器人
 	except discord.errors.LoginFailure:
 		config['token'] = ""
 		writeJson('config', config)
-		error('token錯誤或過期，請重新輸入')
+		error_hand('token錯誤或過期，請重新輸入')
 	except Exception as e:
-		error(e)
+		error_hand(e)
 
 #載入cog
 for filepath in Path("./cogs").glob("**/*.py"):
