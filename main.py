@@ -29,6 +29,11 @@ file_handler.setFormatter(logging.Formatter('%(asctime)s [%(levelname)s] : %(mes
 logging.getLogger().addHandler(file_handler)
 
 
+def error_hand(reason): #錯誤處理
+	logging.critical(reason)
+	root = tk.Tk()
+	app = error_window(root, reason)
+	root.mainloop()
 
 
 
@@ -49,9 +54,11 @@ async def on_ready():
 	logging.info('請勿關閉本視窗以維持機器人上線狀態，可以最小化')
 	logging.info('如要關閉機器人請使用/close指令 或者在本視窗按下ctrl+C')
 	loaded_cogs = list(bot.cogs.keys())
-	for cog_name in loaded_cogs:
-		logging.info(f'已載入 {cog_name} 模塊')
-
+	if loaded_cogs:
+		for cog_name in loaded_cogs:
+			logging.info(f'已載入 {cog_name} 模塊')
+	else:
+		logging.warning('沒有任何模組被載入，請確認cogs資料夾')
 
 
 
@@ -71,11 +78,6 @@ if not os.path.exists("config.json"):
 	logging.debug(f'已創建config.json，檔案位置 {config_file}')
 
 
-def error(reason): #錯誤處理
-	logging.critical(reason)
-	root = tk.Tk()
-	app = error_window(root, reason)
-	root.mainloop()
 
 def tokenInput(): #給使用者輸入token
 	T = input('請輸入token')
@@ -91,9 +93,9 @@ def run_bot(): #執行機器人
 	except discord.errors.LoginFailure:
 		config['token'] = ""
 		writeJson('config', config)
-		error('token錯誤或過期，請重新輸入')
+		error_hand('token錯誤或過期，請重新輸入')
 	except Exception as e:
-		error(e)
+		error_hand(e)
 
 #載入cog
 for filepath in Path("./cogs").glob("**/*.py"):
