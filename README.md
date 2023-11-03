@@ -1,7 +1,12 @@
-# Rice Wo bot basic
+# bot basic
  
-用於為之後自己寫的機器人提供框架    
-順便作為自主學習的主題
+一個基於pycord API的Discord bot基礎架構     
+主要是給朋友使用(?
+
+## 使用方式
+下載原始碼並解壓縮後執行main.py     
+第一次執行會叫你輸入TOKEN       
+之後執行就不會了
 
 ## 感謝
     
