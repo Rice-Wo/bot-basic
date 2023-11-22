@@ -8,9 +8,6 @@ import logging
 from fun import readJson, writeJson
 import discord
 from pathlib import Path
-from discord.ext import commands
-from datetime import datetime
-import time
 
 
 
