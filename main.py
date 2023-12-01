@@ -5,7 +5,7 @@ sys.excepthook = handle_exception
 
 import os
 import logging
-from fun import readJson, writeJson
+from utility import readJson, writeJson
 import discord
 from pathlib import Path
 
