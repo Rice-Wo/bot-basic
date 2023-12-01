@@ -28,9 +28,9 @@ async def on_ready():
 	loaded_cogs = list(bot.cogs.keys())
 	if loaded_cogs:
 		for cog_name in loaded_cogs:
-			logging.info(f'已載入 {cog_name} 模塊')
+			logging.info(f'已載入 {cog_name} 模組')
 	else:
-		logging.warning('沒有任何模組被載入，請確認cogs資料夾')
+		logging.warning('未載入任何模組，請重開機器人')
 
 
 
@@ -72,6 +72,8 @@ for filepath in Path("./cogs").glob("**/*cog.py"): #載入cog
 	parts[-1] = filepath.stem
 	bot.load_extension(".".join(parts))
 	logging.debug(f'已載入 {parts} 模塊')
+
+bot.load_extension('utility.admin_cog')
 
 if __name__ == "__main__":
 	config = readJson('config')
