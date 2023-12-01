@@ -73,7 +73,7 @@ for filepath in Path("./cogs").glob("**/*cog.py"): #載入cog
 	bot.load_extension(".".join(parts))
 	logging.debug(f'已載入 {parts} 模塊')
 
-bot.load_extension('utility.admin_cog')
+bot.load_extension('admin_cog')
 
 if __name__ == "__main__":
 	config = readJson('config')
