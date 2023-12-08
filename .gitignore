@@ -154,3 +154,4 @@ backup.txt
 config.json
 test.py
 .vscode/settings.json
+cogs/

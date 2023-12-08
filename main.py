@@ -5,7 +5,7 @@ sys.excepthook = handle_exception
 
 import os
 import logging
-from fun import readJson, writeJson
+from utility import write_Json, get_Json
 import discord
 from pathlib import Path
 
@@ -28,9 +28,9 @@ async def on_ready():
 	loaded_cogs = list(bot.cogs.keys())
 	if loaded_cogs:
 		for cog_name in loaded_cogs:
-			logging.info(f'已載入 {cog_name} 模塊')
+			logging.info(f'已載入 {cog_name} 模組')
 	else:
-		logging.warning('沒有任何模組被載入，請確認cogs資料夾')
+		logging.warning('未載入任何模組，請重開機器人')
 
 
 
@@ -45,7 +45,7 @@ if not os.path.exists("config.json"):
 		'setting2': 'value2',
 		'setting3': 'value3'
 	}
-	writeJson('config', config)
+	write_Json('config', config)
 	config_file = os.path.join(os.path.dirname(os.path.abspath(__file__)), "config.json")
 	logging.debug(f'已創建config.json，檔案位置 {config_file}')
 
@@ -53,18 +53,18 @@ if not os.path.exists("config.json"):
 
 def tokenInput(): #給使用者輸入token
 	T = input('請輸入token')
-	config = readJson('config')
+	config = get_Json('config')
 	config['token'] = T
-	writeJson('config', config)
+	write_Json('config', config)
 
 def run_bot(): #執行機器人
-	config = readJson('config')
+	config = get_Json('config')
 	try:
 		token = config['token']
 		bot.run(token)
 	except discord.errors.LoginFailure:
 		config['token'] = ""
-		writeJson('config', config)
+		write_Json('config', config)
 		logging.critical('token錯誤或過期，請重新輸入')
 
 for filepath in Path("./cogs").glob("**/*cog.py"): #載入cog
@@ -73,8 +73,10 @@ for filepath in Path("./cogs").glob("**/*cog.py"): #載入cog
 	bot.load_extension(".".join(parts))
 	logging.debug(f'已載入 {parts} 模塊')
 
+bot.load_extension('admin_cog') # 載入基礎管理用指令cog
+
 if __name__ == "__main__":
-	config = readJson('config')
+	config = get_Json('config')
 	if config['token']:
 		run_bot()
 	else:
