@@ -1,5 +1,3 @@
-import sys
-import os
 import json
 
 def write_Json(file, item): #JSON寫入
